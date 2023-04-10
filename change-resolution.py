@@ -1,3 +1,5 @@
+# Change resolution and rescale frame
+
 import numpy as np
 import cv2
 
