@@ -1,3 +1,5 @@
+# Record video from webcam
+import os
 import numpy as np
 import cv2
 
@@ -26,14 +28,31 @@ def get_dimensions(cap, res='1080p'):
     change_res(cap, width, height)
     return width, height
 
+
+VIDEO_TYPE = {
+    'avi': cv2.VideoWriter_fourcc(*'XVID'),
+    'mp4': cv2.VideoWriter_fourcc(*'H264'),
+}
+
+
+def get_video_type(filename):
+    filename, ext = os.path.splitext(filename)
+    if ext in VIDEO_TYPE:
+        return VIDEO_TYPE[ext]
+    return VIDEO_TYPE['avi']
+
+
 cap = cv2.VideoCapture(0)
-dims = get_dimensions(cap, res=my_res)
+video_type_cv2 = get_video_type(file_name)
+out = cv2.VideoWriter(file_name, video_type_cv2, frames_per_second, get_dimensions(cap, res=my_res))
 
 while True:
     ret, frame = cap.read()
+    out.write(frame)
     cv2.imshow('frame', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
 cap.release()
+out.release()
 cv2.destroyAllWindows()
