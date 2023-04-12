@@ -3,7 +3,7 @@ import cv2
 
 file_name = 'video.avi'
 frames_per_second = 24.0
-res = '720p'
+my_res = '720p'
 
 
 def change_res(cap, width, height):
@@ -23,10 +23,13 @@ def get_dimensions(cap, res='1080p'):
     width, height = STD_DIMENSIONS["480p"]
     if res in STD_DIMENSIONS:
         width, height = STD_DIMENSIONS[res]
+    change_res(cap, width, height)
+    return width, height
 
 cap = cv2.VideoCapture(0)
+dims = get_dimensions(cap, res=my_res)
 
-while True :
+while True:
     ret, frame = cap.read()
     cv2.imshow('frame', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
