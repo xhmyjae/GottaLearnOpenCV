@@ -8,3 +8,5 @@ Things I've trained so far:
 ❀ How to use camera and apply a filter to the image.
 
 ❀ Change resolution of the image.
+
+❀ Can record a video and apply a filter to it.
